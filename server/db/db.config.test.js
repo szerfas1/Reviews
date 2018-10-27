@@ -3,9 +3,7 @@ import { Pool } from 'pg';
 
 const setupDb = require('./db.config.js');
 
-beforeAll(() => {
-  return setupDb();
-});
+beforeAll(() => setupDb());
 
 describe('Reviews table', () => {
   it('should have at least 900 rows', done => {

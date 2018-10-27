@@ -12,11 +12,7 @@ before_script:
 
 jobs:
   include:
-    - stage: Lint
-    - script: npm run lint
-  include: 
-    - stage: Test
-    - script: npm test
-  include:
     - stage: Produce Coverage
+    - script: npm run lint
+    - script: npm test
     - script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
