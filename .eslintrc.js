@@ -1,14 +1,8 @@
 module.exports = {
   extends: ['airbnb'],
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', 'jsx'] }],
     'no-plusplus': 'off',
-    'no-use-before-define': ['error', { variables: false }],
-    'no-param-reassign': ['error', { props: false }],
-    'react/destructuring-assignment': ['disabled'],
-    'react/prop-types': ['disabled'],
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'import/no-unresolved': ['disabled'],
+    'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'import/extensions': ['disabled'],
     'space-before-function-paren': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
@@ -23,10 +17,14 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    mocha: true,
   },
-  globals: {
-    React: true,
-    ReactDOM: true,
-  },
+  overrides: [
+    {
+      files: ['**/*.test.js'],
+      env: {
+        jest: true,
+        mocha: true,
+      },
+    },
+  ],
 };

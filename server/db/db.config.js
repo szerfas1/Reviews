@@ -12,7 +12,7 @@ const createQueryStr = `
   );`;
 
 const initReviewsTable = () => {
-  const setupTablePromise = new Promise((res, rej) => {
+  const setupTablePromise = new Promise(res => {
     db.connect((connectionErr, client) => {
       client
         .query('BEGIN')
