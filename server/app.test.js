@@ -18,6 +18,7 @@ describe('/reviews endpoint', () => {
     request(app)
       .get('/reviews/50')
       .then(response => {
+        console.log('DONE', done);
         expect(response.statusCode).to.equal(200);
         // This isn't ideal.  It is actually querying the DB, which makes it
         // slower and isn't necessary for testing the API.  There should be

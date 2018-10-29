@@ -15,6 +15,7 @@ app.get('/', (req, res) => res.send('Hello World!'));
 app.get('/reviews/:productId', (req, res) => {
   db.query(`SELECT * FROM reviews WHERE product_id=${req.params.productId}`)
     .then(queryResponse => {
+      db.end();
       if (queryResponse.rowCount === 0) {
         send404(req, res);
       }
