@@ -20,10 +20,10 @@ describe('Reviews table', () => {
     const pool = new Pool({ database: 'trailblazers_reviews' });
 
     pool.query(
-      'SELECT review_id, rating, reviewer, title, body, recommend, helpful, unhelpful FROM reviews',
+      'SELECT product_id, rating, reviewer, title, body, recommend, helpful, unhelpful FROM reviews',
       (err, res) => {
         const reviewIds = [];
-        res.rows.forEach(row => reviewIds.push(row.review_id));
+        res.rows.forEach(row => reviewIds.push(row.product_id));
         expect(res.rowCount).to.be.above(500);
         pool.end();
         done();
@@ -34,9 +34,9 @@ describe('Reviews table', () => {
   it('should have reviews for most items', done => {
     const pool = new Pool({ database: 'trailblazers_reviews' });
 
-    pool.query('SELECT review_id FROM reviews', (err, res) => {
+    pool.query('SELECT product_id FROM reviews', (err, res) => {
       const reviewIds = new Set();
-      res.rows.forEach(row => reviewIds.add(row.review_id));
+      res.rows.forEach(row => reviewIds.add(row.product_id));
       expect(reviewIds.size).to.be.above(90);
       expect(reviewIds.size).to.be.below(101);
       expect(reviewIds.has(99)).to.equal(true);
