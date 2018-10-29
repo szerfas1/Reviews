@@ -8,7 +8,8 @@ cache:
     - "node_modules"
 before_script:
   - psql -c 'create database trailblazers_reviews;' -U postgres
-  - psql -d "trailblazers_reviews" -c 'CREATE TABLE reviews ( id serial, product_id int, rating int, reviewer varchar(255), title varchar(255), body text, recommend boolean, helpful int, unhelpful int, PRIMARY KEY (id));' -U postgres
+  - npm run db:init
+  - npm run db:setup
 
 jobs:
   include:
