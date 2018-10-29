@@ -15,5 +15,5 @@ jobs:
   include:
     - stage: Produce Coverage
     - script: npm run lint
-    - script: npm test
+    - script: jest --detectOpenHandles --verbose
     - script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
