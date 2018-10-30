@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8000/reviews/47')
+    fetch('http://localhost:8000/reviews/42')
       .then(response => response.json())
       .then(json => {
         this.setState(() => ({ reviews: json }));
@@ -39,23 +39,22 @@ class App extends React.Component {
         <ReviewOverview />
         {reviews.map(review => {
           const stars = [];
+
           for (let i = 0; i < 5; i++) {
-            i < review.rating ? stars.push('&#9733;') : stars.push('&#9734;');
+            let star;
+            i < review.rating ? (star = '★') : (star = '☆');
+            stars.push(<span key={i}> {star} </span>);
           }
           return (
             <Review key={review.id}>
               <h4>{review.reviewer}</h4>
               <h3>{review.title}</h3>
-              <p>
-                {stars.map(star => (
-                  <span dangerouslySetInnerHTML={{ __html: star }} />
-                ))}
-              </p>
+              <p>{stars}</p>
               <p>{review.body}</p>
               <p>
                 {review.recommend
-                  ? 'Yes, I recommend this product'
-                  : 'I do not recommend this product'}
+                  ? '☑ Yes, I recommend this product'
+                  : '☒ I do not recommend this product'}
               </p>
               <p>
                 Helpful? Yes: {review.helpful} No: {review.unhelpful}
