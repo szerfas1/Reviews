@@ -17,10 +17,7 @@ const ReviewOverview = styled.div``;
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      reviews: [],
-    };
+    this.state = { reviews: [] };
   }
 
   componentDidMount() {
@@ -38,7 +35,7 @@ class App extends React.Component {
         <h1>Reviews</h1>
         <ReviewOverview />
         {reviews.map(review => (
-          <Review {...review} />
+          <Review key={review.id} {...review} />
         ))}
       </Main>
     );
