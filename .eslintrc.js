@@ -4,6 +4,7 @@ module.exports = {
     'no-plusplus': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
+    'react/prop-types': 'off',
     'import/extensions': ['disabled'],
     'space-before-function-paren': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
