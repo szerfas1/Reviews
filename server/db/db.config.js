@@ -5,7 +5,7 @@ const db = new Pool({ database: 'trailblazers_reviews' });
 
 const createQueryStr = `
   CREATE TABLE reviews (
-    id serial, review_id int, rating int,
+    id serial, product_id int, rating int,
     reviewer varchar(255), title varchar(255), body text,
     recommend boolean, helpful int, unhelpful int,
     PRIMARY KEY (id)
@@ -19,7 +19,7 @@ const insertPlaceholderData = (client, res) => {
     const insertQuery = {
       text: `
   INSERT INTO reviews (
-    review_id, rating, reviewer, title, body, recommend, helpful, unhelpful
+    product_id, rating, reviewer, title, body, recommend, helpful, unhelpful
   ) VALUES (
        $1,       $2,      $3,      $4,   $5,    $6,        $7,       $8
   )`,
