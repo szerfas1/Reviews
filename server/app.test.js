@@ -2,17 +2,6 @@ const request = require('supertest');
 const { expect } = require('chai');
 const { app, db } = require('./app.js');
 
-describe('Server basics', () => {
-  it('should return 200 for a basic request', done => {
-    request(app)
-      .get('/product/1')
-      .then(response => {
-        expect(response.statusCode).to.equal(200);
-        done();
-      });
-  });
-});
-
 describe('/reviews endpoint', () => {
   it('should return a result for a valid request', done => {
     request(app)
