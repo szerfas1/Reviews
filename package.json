@@ -13,7 +13,7 @@
     "db:init": "psql -d 'trailblazers_reviews' -c 'CREATE TABLE reviews ( id serial, product_id int, rating int, reviewer varchar(255), title varchar(255), body text, recommend boolean, helpful int, unhelpful int, PRIMARY KEY (id));' -U postgres",
     "db:setup": "node ./server/db/db.config.js",
     "db:clean": "psql -d 'trailblazers_reviews' -c 'DROP TABLE reviews;' -U postgres",
-    "start": "webpack-cli --watch & live-server --open=./client/public/index.html --port=3000"
+    "start": "webpack-cli --watch & nodemon server/server.js"
   },
   "dependencies": {
     "express": "^4.16.4",
@@ -27,8 +27,6 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "acorn": "^6.0.2",
-    "ajv": "^6.5.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-styled-components": "^1.8.0",
@@ -46,8 +44,10 @@
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "faker": "^4.1.0",
+    "husky": "^1.1.2",
     "jest": "^23.6.0",
     "jest-fetch-mock": "^1.6.6",
+    "lint-staged": "^8.0.4",
     "prettier": "^1.14.3",
     "style-loader": "^0.23.0",
     "supertest": "^3.3.0",
@@ -57,5 +57,14 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>setupTests.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": ["eslint"]
   }
 }
