@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import './app.css';
 import Review from './components/review.js';
 
 class App extends React.Component {

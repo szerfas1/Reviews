@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 });
 app.use(express.static(`${__dirname}./../client/dist`));
 
-app.get('/products/:productId', (req, res) => {
+app.get('/product/:productId', (req, res) => {
   const options = { headers: { 'Content-Type': 'text/html' } };
   const file = path.join(`${__dirname}./../client/public/index.html`);
 

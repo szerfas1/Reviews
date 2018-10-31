@@ -4,9 +4,7 @@ const { Pool } = require('pg');
 
 // pools will use environment variables
 // for connection information
-const pool = new Pool({
-  database: 'trailblazers-reviews',
-});
+const pool = new Pool({ database: 'trailblazers-reviews' });
 
 it('should add and delete a test table without an error', done => {
   pool.query(

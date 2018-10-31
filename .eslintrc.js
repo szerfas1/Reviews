@@ -8,7 +8,13 @@ module.exports = {
     'import/extensions': ['disabled'],
     'space-before-function-paren': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
-    'operator-linebreak': ['error', 'before'],
+    'operator-linebreak': [
+      'error',
+      'before',
+      {
+        overrides: { '+': 'after' },
+      },
+    ],
     'object-curly-newline': ['error', { multiline: true }],
     'no-unused-expressions': ['error', { allowTernary: true }],
     'import/no-extraneous-dependencies': [
