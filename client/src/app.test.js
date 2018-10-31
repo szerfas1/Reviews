@@ -37,7 +37,7 @@ const testData = [
     title: 'Eaque nihil quibusdam ut unde molestiae commodi eos.',
     body:
       'Labore ut nostrum aut asperiores veniam cum maxime quaerat. Deleniti repudiandae porro id dolores error. Quisquam tempora eaque libero quia voluptas autem. Aut corrupti fugit placeat vero. Cum esse quos a harum vero animi. Aperiam est consequuntur ut quia. Dolor harum vitae aliquid.',
-    recommend: true,
+    recommend: false,
     helpful: 8,
     unhelpful: 11,
   },
@@ -58,5 +58,10 @@ describe('Results component', () => {
     );
     const targetStarNumber = testData.reduce((acc, cur) => acc + cur.rating, 0);
     expect(renderedNumberOfStars).to.equal(targetStarNumber);
+  });
+
+  it('should render whether the product is recommended', () => {
+    expect(w.html().toLowerCase()).to.include('i recommend ');
+    expect(w.html().toLowerCase()).to.include('i do not recommend ');
   });
 });
