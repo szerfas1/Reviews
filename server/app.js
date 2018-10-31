@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { Pool } = require('pg');
 
 const db = new Pool({ database: 'trailblazers_reviews' });
@@ -12,8 +13,14 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(express.static(`${__dirname}./../client/dist`));
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/products/:productId', (req, res) => {
+  const options = { headers: { 'Content-Type': 'text/html' } };
+  const file = path.join(`${__dirname}./../client/public/index.html`);
+
+  res.sendFile(file, options);
+});
 
 app.get('/reviews/:productId', (req, res) => {
   db.query(`SELECT * FROM reviews WHERE product_id=${req.params.productId}`)
