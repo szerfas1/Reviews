@@ -22,15 +22,18 @@
     "react-dom": "^16.6.0",
     "styled-components": "^4.0.2"
   },
-  "//": "Bundler/loaders",
-  "//": "*** Babel ***",
-  "//": "*** Linter/prettier ***",
-  "//": "*** testing ***",
-  "//": "used to conform to syntax in enzyme docs",
-  "//": [ "removed plugins", {
-    "ajv": "^6.5.4",
-    "acorn": "^6.0.2"
-  }],
+  "//": [
+    "*** Organization of devDependencies ***",
+    "1) Bundler/loaders",
+    "2) Babel",
+    "3) Linter/prettier",
+    "4) Testing",
+    "     (chai used to match syntax in Jest docs)",
+    "removed plugins", {
+      "ajv": "^6.5.4",
+      "acorn": "^6.0.2"
+    }
+  ],
   "devDependencies": {
 
     "webpack": "^4.19.1",
