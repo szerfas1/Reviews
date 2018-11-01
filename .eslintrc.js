@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb'],
+  extends: ['airbnb', 'plugin:jsx-a11y/recommended'],
   rules: {
     'no-plusplus': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
@@ -28,6 +28,7 @@ module.exports = {
     browser: true,
     node: true,
   },
+  plugins: ['jsx-a11y'],
   overrides: [
     {
       files: ['**/*.test.js'],

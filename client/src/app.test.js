@@ -52,12 +52,12 @@ describe('Results component', () => {
   });
 
   it('should render the correct number of stars', () => {
-    const renderedNumberOfStars = Array.from(w.text()).reduce(
-      (acc, cur) => (cur === '★' ? acc + 1 : acc),
-      0,
-    );
+    w.update();
+    const renderedStars = w.find('ReviewHeader__Star').filter('[filled=true]')
+      .length;
     const targetStarNumber = testData.reduce((acc, cur) => acc + cur.rating, 0);
-    expect(renderedNumberOfStars).to.equal(targetStarNumber);
+    expect(renderedStars).to.equal(targetStarNumber);
+    // expect(w.find({ filled: true })).to.have.lengthOf(targetStarNumber);
   });
 
   it('should render whether the product is recommended', () => {

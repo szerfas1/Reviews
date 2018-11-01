@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Review from './components/review.js';
+import Review from './components/Review.js';
 
 class App extends React.Component {
   constructor() {
@@ -29,11 +29,14 @@ class App extends React.Component {
       padding: 0 10px;
     `;
 
+    const Title = styled.h1`
+      text-align: center;
+    `;
     const ReviewOverview = styled.div``;
 
     return (
       <Main>
-        <h1>Reviews</h1>
+        <Title>Reviews</Title>
         <ReviewOverview />
         {reviews.map(review => (
           <Review key={review.id} {...review} />
