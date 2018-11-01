@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewHeader from './reviewHeader.js';
+import ReviewHeader from './ReviewHeader.js';
 
 const Review = props => {
   const { body, recommend, helpful, unhelpful, ...others } = props;
