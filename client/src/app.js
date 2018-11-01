@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Review from './components/Review.js';
 import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
+import SortSelector from './components/SortSelector.js';
 
 class App extends React.Component {
   constructor() {
@@ -10,7 +11,9 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       ratings: [],
+      sortDirection: 'mostRecent',
     };
+    this.sortByRating = this.sortByRating.bind(this);
   }
 
   componentDidMount() {
@@ -30,8 +33,25 @@ class App extends React.Component {
       });
   }
 
+  sortByRating(newSortDirection) {
+    console.log(newSortDirection);
+    const { reviews } = this.state;
+    const action = {
+      ratingLowToHigh: () => reviews.sort((a, b) => a.rating > b.rating),
+      ratingHighToLow: () => reviews.sort((a, b) => a.rating < b.rating),
+      mostHelpful: () => reviews.sort((a, b) => a.helpful < b.helpful),
+    };
+
+    const sortedReviews = action[newSortDirection]();
+
+    this.setState(() => ({
+      reviews: sortedReviews,
+      sortDirection: newSortDirection,
+    }));
+  }
+
   render() {
-    const { reviews, ratings } = this.state;
+    const { reviews, ratings, sortDirection } = this.state;
 
     const Main = styled.div`
       margin: 40px auto;
@@ -52,11 +72,15 @@ class App extends React.Component {
 
     return (
       <Main>
-        <Title>Reviews</Title>
+        <Title onClick={this.sortByRating}>Reviews</Title>
         <ReviewHeader>
           <RatingSnapshot ratings={ratings} />
           <AverageRating ratings={ratings} />
         </ReviewHeader>
+        <SortSelector
+          sortDirection={sortDirection}
+          handleChange={this.sortByRating}
+        />
         {reviews.map(review => (
           <Review key={review.id} {...review} />
         ))}
