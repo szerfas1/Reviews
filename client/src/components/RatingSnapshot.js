@@ -4,7 +4,11 @@ import styled from 'styled-components';
 const ReviewOverview = props => {
   const { ratings } = props;
 
-  const totalRatings = ratings.reduce((cur, acc) => acc + cur, 0);
+  const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
+
+  const Container = styled.div`
+    float: left;
+  `;
 
   const Header = styled.p`
     margin-bottom: 0;
@@ -28,7 +32,7 @@ const ReviewOverview = props => {
   `;
 
   return (
-    <>
+    <Container>
       <Header>Rating Snapshot</Header>
       {ratings.map((rating, i) => (
         <div key={i}>
@@ -38,7 +42,7 @@ const ReviewOverview = props => {
           <FilledBar rating={rating} />
         </div>
       ))}
-    </>
+    </Container>
   );
 };
 

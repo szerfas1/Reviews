@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Review from './components/Review.js';
 import RatingSnapshot from './components/RatingSnapshot.js';
+import AverageRating from './components/AverageRating.js';
 
 class App extends React.Component {
   constructor() {
@@ -41,6 +42,10 @@ class App extends React.Component {
       padding: 0 10px;
     `;
 
+    const ReviewHeader = styled.div`
+      height: 12em;
+    `;
+
     const Title = styled.h1`
       text-align: center;
     `;
@@ -48,7 +53,10 @@ class App extends React.Component {
     return (
       <Main>
         <Title>Reviews</Title>
-        <RatingSnapshot ratings={ratings} />
+        <ReviewHeader>
+          <RatingSnapshot ratings={ratings} />
+          <AverageRating ratings={ratings} />
+        </ReviewHeader>
         {reviews.map(review => (
           <Review key={review.id} {...review} />
         ))}
