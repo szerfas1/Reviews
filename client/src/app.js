@@ -1,11 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Review from './components/Review.js';
+import RatingSnapshot from './components/RatingSnapshot.js';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { reviews: [] };
+    this.state = {
+      reviews: [],
+      ratings: [],
+    };
   }
 
   componentDidMount() {
@@ -14,11 +18,19 @@ class App extends React.Component {
 
     fetch(`http://localhost:8000/reviews/${productId}`)
       .then(response => response.json())
-      .then(json => this.setState(() => ({ reviews: json })));
+      .then(json => {
+        const initialRatings = Array(5).fill(0);
+        const ratings = json.reduce((currentRatings, review) => {
+          const newRatings = currentRatings;
+          newRatings[review.rating - 1]++;
+          return newRatings;
+        }, initialRatings);
+        this.setState(() => ({ reviews: json, ratings }));
+      });
   }
 
   render() {
-    const { reviews } = this.state;
+    const { reviews, ratings } = this.state;
 
     const Main = styled.div`
       margin: 40px auto;
@@ -32,12 +44,11 @@ class App extends React.Component {
     const Title = styled.h1`
       text-align: center;
     `;
-    const ReviewOverview = styled.div``;
 
     return (
       <Main>
         <Title>Reviews</Title>
-        <ReviewOverview />
+        <RatingSnapshot ratings={ratings} />
         {reviews.map(review => (
           <Review key={review.id} {...review} />
         ))}
