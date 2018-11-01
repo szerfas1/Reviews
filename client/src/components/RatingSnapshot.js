@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ReviewOverview = props => {
+const RatingSnapshot = props => {
   const { ratings } = props;
 
   const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
@@ -46,4 +46,4 @@ const ReviewOverview = props => {
   );
 };
 
-export default ReviewOverview;
+export default RatingSnapshot;

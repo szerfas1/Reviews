@@ -7,7 +7,7 @@ const AverageRating = props => {
   `;
   const { ratings } = props;
   const ratingSum = ratings.reduce((acc, cur, i) => acc + cur * i, 0);
-  const ratingAve = ratingSum / ratings.reduce((acc, cur) => acc + cur, 0);
+  const ratingAve = ratingSum / ratings.reduce((acc, cur) => acc + cur, 0) + 1;
 
   const Bar = styled.span`
     display: inline-block;
@@ -18,7 +18,7 @@ const AverageRating = props => {
     display: inline-block;
     color: #bd5b0d;
     font-size: 1.5em;
-    width: ${(180 / 5) * ratingAve}px;
+    width: ${(120 / 5) * ratingAve}px;
     height: 1.15em;
     margin-left: calc(-120px - 3 * 0.5em);
     overflow: hidden;
