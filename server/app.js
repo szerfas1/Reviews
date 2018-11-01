@@ -16,10 +16,13 @@ app.use((req, res, next) => {
 app.use(express.static(`${__dirname}./../client/dist`));
 
 app.get('/product/:productId', (req, res) => {
-  const options = { headers: { 'Content-Type': 'text/html' } };
-  const file = path.join(`${__dirname}./../client/public/index.html`);
-
-  res.sendFile(file, options);
+  if (req.params.productId === 'random') {
+    res.redirect(`/product/${Math.floor(Math.random() * 100) + 1}`);
+  } else {
+    const options = { headers: { 'Content-Type': 'text/html' } };
+    const file = path.join(`${__dirname}./../client/public/index.html`);
+    res.sendFile(file, options);
+  }
 });
 
 app.get('/reviews/:productId', (req, res) => {

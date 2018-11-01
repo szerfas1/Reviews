@@ -33,6 +33,11 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
+  it('should redirect for /product/random', () => {
+    request(app)
+      .get('/product/random')
+      .then(res => expect(res.statusCode).to.equal(302));
+  });
   it('should return 400 when the productId is malformed', done => {
     request(app)
       .get('/reviews/banana')
