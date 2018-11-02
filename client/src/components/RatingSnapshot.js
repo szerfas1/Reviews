@@ -1,37 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const RatingSnapshot = props => {
-  const { ratings } = props;
+const Container = styled.div`
+  float: left;
+`;
 
+const Header = styled.p`
+  margin-bottom: 0;
+`;
+
+const Bar = styled.span`
+  display: inline-block;
+  background-color: #c5c5c5;
+  width: 180px;
+  height: 10px;
+`;
+const FilledBar = styled.span`
+  display: inline-block;
+  background-color: #bd5b0d;
+  margin-left: calc(-1 * (198px + ${p => 0.65 * String(p.rating).length}em));
+  width: ${p => (180 / p.totalRatings) * p.rating}px;
+  height: 10px;
+`;
+const NumericalRating = styled.span`
+  padding-left: 1em;
+`;
+
+const RatingSnapshot = ({ ratings }) => {
   const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
-
-  const Container = styled.div`
-    float: left;
-  `;
-
-  const Header = styled.p`
-    margin-bottom: 0;
-  `;
-
-  const Bar = styled.span`
-    display: inline-block;
-    background-color: #c5c5c5;
-    width: 180px;
-    height: 10px;
-  `;
-  const FilledBar = styled.span`
-    display: inline-block;
-    background-color: #bd5b0d;
-    margin-left: calc(
-      -1 * (198px + ${styleProps => 0.65 * String(styleProps.rating).length}em)
-    );
-    width: ${styleProps => (180 / totalRatings) * styleProps.rating}px;
-    height: 10px;
-  `;
-  const NumericalRating = styled.span`
-    padding-left: 1em;
-  `;
 
   return (
     <Container>
@@ -41,7 +37,7 @@ const RatingSnapshot = props => {
           {i + 1}
           ★: <Bar />
           <NumericalRating>{rating}</NumericalRating>
-          <FilledBar rating={rating} />
+          <FilledBar rating={rating} totalRatings={totalRatings} />
         </div>
       ))}
     </Container>
