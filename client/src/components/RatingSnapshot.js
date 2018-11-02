@@ -18,9 +18,7 @@ const Bar = styled.span`
 const FilledBar = styled.span`
   display: inline-block;
   background-color: #bd5b0d;
-  margin-left: calc(
-    -1 * (198px + ${p => 0.65 * String(p.rating).length}em)
-  );
+  margin-left: calc(-1 * (198px + ${p => 0.65 * String(p.rating).length}em));
   width: ${p => (180 / p.totalRatings) * p.rating}px;
   height: 10px;
 `;
@@ -28,9 +26,7 @@ const NumericalRating = styled.span`
   padding-left: 1em;
 `;
 
-const RatingSnapshot = props => {
-  const { ratings } = props;
-
+const RatingSnapshot = ({ ratings }) => {
   const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
 
   return (
