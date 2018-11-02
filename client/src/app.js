@@ -78,7 +78,7 @@ class App extends React.Component {
 
     return (
       <Main>
-        <Title onClick={this.sortByRating}>Reviews</Title>
+        <Title>Reviews</Title>
         <ReviewHeader>
           <RatingSnapshot ratings={ratings} />
           <AverageRating ratings={ratings} />
