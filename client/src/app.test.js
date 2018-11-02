@@ -185,4 +185,14 @@ describe('Results component', () => {
       expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
     });
   });
+
+  it('should be able to increment the helpfulness data', () => {
+    const helpfulnessNode = w.find('Review__HelpfulData').first();
+
+    const helpfulRating = +helpfulnessNode.text().slice(6); // remove "Yes: "
+
+    helpfulnessNode.simulate('click');
+
+    expect(+helpfulnessNode.text().slice(6)).to.equal(helpfulRating + 1);
+  });
 });
