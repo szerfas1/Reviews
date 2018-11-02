@@ -188,11 +188,31 @@ describe('Results component', () => {
 
   it('should be able to increment the helpfulness data', () => {
     const helpfulnessNode = w.find('Review__HelpfulData').first();
-
-    const helpfulRating = +helpfulnessNode.text().slice(6); // remove "Yes: "
+    const helpfulStr = helpfulnessNode.text();
+    const helpfulNum = +helpfulStr.match(/\d/g).join('');
 
     helpfulnessNode.simulate('click');
 
-    expect(+helpfulnessNode.text().slice(6)).to.equal(helpfulRating + 1);
+    expect(
+      +helpfulnessNode
+        .text()
+        .match(/\d/g)
+        .join(''),
+    ).to.equal(helpfulNum + 1);
+  });
+
+  it('should be able to increment the unhelpfulness data', () => {
+    const helpfulnessNode = w.find('Review__HelpfulData').at(1);
+    const unhelpfulStr = helpfulnessNode.text();
+    const unhelpfulNum = +unhelpfulStr.match(/\d/g).join('');
+
+    helpfulnessNode.simulate('click');
+
+    expect(
+      +helpfulnessNode
+        .text()
+        .match(/\d/g)
+        .join(''),
+    ).to.equal(unhelpfulNum + 1);
   });
 });
