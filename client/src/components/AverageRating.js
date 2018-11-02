@@ -20,8 +20,7 @@ const FilledBar = styled.span`
   overflow: hidden;
 `;
 
-const AverageRating = props => {
-  const { ratings } = props;
+const AverageRating = ({ ratings }) => {
   const ratingSum = ratings.reduce((acc, cur, i) => acc + cur * i, 0);
   const ratingAve = ratingSum / ratings.reduce((acc, cur) => acc + cur, 0) + 1;
 
