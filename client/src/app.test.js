@@ -57,11 +57,49 @@ describe('Results component', () => {
       .length;
     const targetStarNumber = testData.reduce((acc, cur) => acc + cur.rating, 0);
     expect(renderedStars).to.equal(targetStarNumber);
-    // expect(w.find({ filled: true })).to.have.lengthOf(targetStarNumber);
   });
 
   it('should render whether the product is recommended', () => {
     expect(w.html().toLowerCase()).to.include('i recommend ');
     expect(w.html().toLowerCase()).to.include('i do not recommend ');
+  });
+
+  it('should render the correct number of 1-star ratings', () => {
+    const rendered1StarRatings = +w
+      .find('RatingSnapshot__NumericalRating')
+      .at(0)
+      .text();
+
+    const expected1StarRatings = testData.reduce(
+      (acc, cur) => (cur.rating === 1 ? acc + 1 : acc),
+      0,
+    );
+
+    expect(rendered1StarRatings).to.equal(expected1StarRatings);
+  });
+
+  it('should render the correct number of 2-star ratings', () => {
+    const rendered2StarRatings = +w
+      .find('RatingSnapshot__NumericalRating')
+      .at(1)
+      .text();
+
+    const expected2StarRatings = testData.reduce(
+      (acc, cur) => (cur.rating === 2 ? acc + 1 : acc),
+      0,
+    );
+
+    expect(rendered2StarRatings).to.equal(expected2StarRatings);
+  });
+
+  it('should render the correct average rating', () => {
+    console.log();
+
+    const sumOfRatings = testData.reduce((acc, cur) => acc + cur.rating, 0);
+    const avgRating = sumOfRatings / testData.length;
+
+    expect(w.find('AverageRating__Container').text()).to.include(
+      String(avgRating.toPrecision(3)),
+    );
   });
 });
