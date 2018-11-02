@@ -93,13 +93,70 @@ describe('Results component', () => {
   });
 
   it('should render the correct average rating', () => {
-    console.log();
-
     const sumOfRatings = testData.reduce((acc, cur) => acc + cur.rating, 0);
     const avgRating = sumOfRatings / testData.length;
 
     expect(w.find('AverageRating__Container').text()).to.include(
       String(avgRating.toPrecision(3)),
     );
+  });
+
+  it('should be able to sort the reviews from highest to lowest rating', () => {
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${testData[i].rating} out of 5 stars`);
+    });
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'ratingHighToLow' } });
+
+    const sortedData = testData.sort((a, b) => a.rating < b.rating);
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
+
+  it('should be able to sort the reviews from lowest to highest rating', () => {
+    const sortedData = testData.sort((a, b) => a.rating > b.rating);
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'ratingLowToHigh' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
+
+  it('should be able to sort the reviews by helpfulness', () => {
+    const sortedData = testData.sort((a, b) => a.helpful > b.helpful);
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'mostHelpful' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
   });
 });

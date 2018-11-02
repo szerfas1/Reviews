@@ -26,7 +26,7 @@ const ReviewHeader = props => {
 
   return (
     <>
-      {stars}
+      <span title={`${rating} out of 5 stars`}>{stars}</span>
       <Reviewer>{reviewer}</Reviewer>
       <ReviewTitle>{title}</ReviewTitle>
     </>
