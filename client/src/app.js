@@ -29,14 +29,20 @@ class App extends React.Component {
           newRatings[review.rating - 1]++;
           return newRatings;
         }, initialRatings);
-        this.setState(() => ({ reviews: json, ratings }));
+        const sortedReviews = json.sort(
+          (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
+        );
+        this.setState(() => ({ reviews: sortedReviews, ratings }));
       });
   }
 
   sortByRating(newSortDirection) {
     const { reviews } = this.state;
     const action = {
-      mostRecent: () => reviews.sort((a, b) => b.posting_date - a.posting_date),
+      mostRecent: () =>
+        reviews.sort(
+          (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
+        ),
       ratingLowToHigh: () => reviews.sort((a, b) => a.rating - b.rating),
       ratingHighToLow: () => reviews.sort((a, b) => b.rating - a.rating),
       mostHelpful: () => reviews.sort((a, b) => b.helpful - a.helpful),

@@ -44,8 +44,8 @@ const ReviewHeader = props => {
   return (
     <>
       <span title={`${rating} out of 5 stars`}>{stars}</span>
-      <Reviewer>{reviewer}</Reviewer>
-      <span>{dateStr}</span>
+      <Reviewer>{reviewer} </Reviewer>
+      <span> {dateStr}</span>
       <ReviewTitle>{title}</ReviewTitle>
     </>
   );

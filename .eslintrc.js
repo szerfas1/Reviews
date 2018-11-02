@@ -9,6 +9,7 @@ module.exports = {
     'import/extensions': ['disabled'],
     'space-before-function-paren': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
+    'implicit-arrow-linebreak': ['warn', 'beside'],
     'operator-linebreak': [
       'error',
       'before',
