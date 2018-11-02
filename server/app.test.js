@@ -33,10 +33,22 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-  it('should redirect for /product/random', () => {
+  it('should redirect for /product/random', done => {
     request(app)
       .get('/product/random')
-      .then(res => expect(res.statusCode).to.equal(302));
+      .then(res => {
+        expect(res.statusCode).to.equal(302);
+        done();
+      });
+  });
+  it('should return HTML for a valid /product route', done => {
+    request(app)
+      .get('/product/47')
+      .then(res => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.header['content-type']).to.equal('text/html');
+        done();
+      });
   });
   it('should return 400 when the productId is malformed', done => {
     request(app)

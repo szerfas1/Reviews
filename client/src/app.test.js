@@ -7,14 +7,15 @@ const testData = [
   {
     id: 94,
     product_id: 11,
-    rating: 2,
+    rating: 5,
     reviewer: 'Carolanne_Reynolds32',
     title: 'Ad voluptate ut asperiores quisquam.',
     body:
       'Enim perferendis beatae qui dolorem ipsum perspiciatis possimus. Aliquam ut quasi debitis asperiores qui nisi. Quidem ipsa aut qui aut ut esse autem consequatur. Quia dolore alias alias minima illo maiores. Odit temporibus illo harum.',
     recommend: true,
-    helpful: 30,
+    helpful: 10,
     unhelpful: 6,
+    posting_date: '2015-09-04T04:00:00.000Z',
   },
   {
     id: 95,
@@ -28,6 +29,7 @@ const testData = [
     recommend: true,
     helpful: 18,
     unhelpful: 3,
+    posting_date: '2016-09-04T04:00:00.000Z',
   },
   {
     id: 96,
@@ -38,8 +40,22 @@ const testData = [
     body:
       'Labore ut nostrum aut asperiores veniam cum maxime quaerat. Deleniti repudiandae porro id dolores error. Quisquam tempora eaque libero quia voluptas autem. Aut corrupti fugit placeat vero. Cum esse quos a harum vero animi. Aperiam est consequuntur ut quia. Dolor harum vitae aliquid.',
     recommend: false,
-    helpful: 8,
+    helpful: 28,
     unhelpful: 11,
+    posting_date: '2017-09-04T04:00:00.000Z',
+  },
+  {
+    id: 97,
+    product_id: 11,
+    rating: 2,
+    reviewer: 'Humphrey Ford',
+    title: 'Eaque nihil ut unde molestiae commodi eos.',
+    body:
+      'Labore ut aut asperiores veniam cum maxime quaerat. Deleniti repudiandae porro id dolores error. Quisquam tempora eaque libero quia voluptas autem. Aut corrupti fugit placeat vero. Cum esse quos a harum vero animi. Aperiam est consequuntur ut quia. Dolor harum vitae aliquid.',
+    recommend: true,
+    helpful: 6,
+    unhelpful: 13,
+    posting_date: '2018-09-04T04:00:00.000Z',
   },
 ];
 
@@ -93,13 +109,80 @@ describe('Results component', () => {
   });
 
   it('should render the correct average rating', () => {
-    console.log();
-
     const sumOfRatings = testData.reduce((acc, cur) => acc + cur.rating, 0);
     const avgRating = sumOfRatings / testData.length;
 
     expect(w.find('AverageRating__Container').text()).to.include(
       String(avgRating.toPrecision(3)),
     );
+  });
+
+  it('should be able to sort the reviews from highest to lowest rating', () => {
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'ratingHighToLow' } });
+
+    const sortedData = testData.sort((a, b) => b.rating - a.rating);
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
+
+  it('should be able to sort the reviews from lowest to highest rating', () => {
+    const sortedData = testData.sort((a, b) => a.rating - b.rating);
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'ratingLowToHigh' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
+
+  it('should be able to sort the reviews by helpfulness', () => {
+    const sortedData = testData.sort((a, b) => b.helpful - a.helpful);
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'mostHelpful' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
+
+  it('should be able to sort the reviews by date', () => {
+    const sortedData = testData.sort(
+      (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
+    );
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'mostRecent' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
   });
 });

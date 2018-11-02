@@ -23,7 +23,9 @@ const RatingSnapshot = props => {
   const FilledBar = styled.span`
     display: inline-block;
     background-color: #bd5b0d;
-    margin-left: calc(-1 * (180px + 1.65em));
+    margin-left: calc(
+      -1 * (198px + ${styleProps => 0.65 * String(styleProps.rating).length}em)
+    );
     width: ${styleProps => (180 / totalRatings) * styleProps.rating}px;
     height: 10px;
   `;
