@@ -2,6 +2,7 @@ module.exports = {
   extends: ['airbnb', 'plugin:jsx-a11y/recommended'],
   rules: {
     'no-plusplus': 'off',
+    'no-param-reassign': ['error', { props: false }],
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
     'react/no-array-index-key': 'warn',

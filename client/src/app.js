@@ -31,6 +31,7 @@ class App extends React.Component {
       sortDirection: 'mostRecent',
     };
     this.sortByRating = this.sortByRating.bind(this);
+    this.incrementHelpful = this.incrementHelpful.bind(this);
   }
 
   componentDidMount() {
@@ -73,6 +74,17 @@ class App extends React.Component {
     }));
   }
 
+  incrementHelpful(reviewId) {
+    const { reviews } = this.state;
+    const newReviews = reviews.map(review => {
+      if (review.id === reviewId) {
+        review.helpfull++;
+      }
+      return review;
+    });
+    this.setState(() => ({ reviews: newReviews }));
+  }
+
   render() {
     const { reviews, ratings, sortDirection } = this.state;
 
@@ -88,7 +100,11 @@ class App extends React.Component {
           handleChange={this.sortByRating}
         />
         {reviews.map(review => (
-          <Review key={review.id} {...review} />
+          <Review
+            key={review.id}
+            incrementHelpful={this.incrementHelpful}
+            {...review}
+          />
         ))}
       </Main>
     );
