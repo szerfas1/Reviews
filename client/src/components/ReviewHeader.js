@@ -3,6 +3,23 @@ import styled from 'styled-components';
 
 const ReviewHeader = props => {
   const { reviewer, title, rating } = props;
+  const date = new Date(props.posting_date);
+  const month = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ][date.getMonth()];
+
+  const dateStr = `${month} ${date.getDate()}, ${date.getFullYear()}`;
 
   const Reviewer = styled.div`
     font-weight: bold;
@@ -28,6 +45,7 @@ const ReviewHeader = props => {
     <>
       <span title={`${rating} out of 5 stars`}>{stars}</span>
       <Reviewer>{reviewer}</Reviewer>
+      <span>{dateStr}</span>
       <ReviewTitle>{title}</ReviewTitle>
     </>
   );

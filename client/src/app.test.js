@@ -159,4 +159,21 @@ describe('Results component', () => {
       expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
     });
   });
+
+  it('should be able to sort the reviews by date', () => {
+    const sortedData = testData.sort((a, b) => a.date > b.date);
+
+    w.find('SortSelector__SortPicker')
+      .at(0)
+      .simulate('change', { target: { value: 'mostRecent' } });
+
+    w.find('ReviewHeader').forEach((node, i) => {
+      const rendered = node
+        .find('span')
+        .first()
+        .html();
+
+      expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
+    });
+  });
 });

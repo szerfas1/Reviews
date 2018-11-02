@@ -6,6 +6,7 @@ const SortSelector = props => {
 
   const Container = styled.div`
     float: right;
+    padding-left: 50%;
   `;
   const SortPicker = styled.select`
     background-color: white;

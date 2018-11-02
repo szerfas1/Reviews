@@ -34,12 +34,12 @@ class App extends React.Component {
   }
 
   sortByRating(newSortDirection) {
-    console.log(newSortDirection);
     const { reviews } = this.state;
     const action = {
-      ratingLowToHigh: () => reviews.sort((a, b) => a.rating > b.rating),
-      ratingHighToLow: () => reviews.sort((a, b) => a.rating < b.rating),
-      mostHelpful: () => reviews.sort((a, b) => a.helpful < b.helpful),
+      mostRecent: () => reviews.sort((a, b) => b.posting_date - a.posting_date),
+      ratingLowToHigh: () => reviews.sort((a, b) => a.rating - b.rating),
+      ratingHighToLow: () => reviews.sort((a, b) => b.rating - a.rating),
+      mostHelpful: () => reviews.sort((a, b) => b.helpful - a.helpful),
     };
 
     const sortedReviews = action[newSortDirection]();
