@@ -5,19 +5,35 @@ const Container = styled.div`
   float: right;
 `;
 
+const StarContainer = styled.div`
+  width: fit-content;
+  float: left;
+`;
+
 const Bar = styled.span`
   display: inline-block;
   color: #c5c5c5;
   font-size: 1.5em;
+  float: left;
+  width: 0;
+  overflow: visible;
 `;
-const FilledBar = styled.span`
-  display: inline-block;
+const FilledBar = styled(Bar)`
   color: #bd5b0d;
-  font-size: 1.5em;
-  width: ${p => (120 / 5) * p.ratingAve}px;
+  width: ${p => p.ratingAve * 20}%;
   height: 1.15em;
-  margin-left: calc(-120px - 3 * 0.5em);
   overflow: hidden;
+`;
+
+const StarLabel = styled.span`
+  float: left;
+  padding-top: 0.5em;
+`;
+
+const NumericalRating = styled.span`
+  padding-top: 0.5em;
+  padding-left: 1em;
+  float: left;
 `;
 
 const AverageRating = ({ ratings }) => {
@@ -27,10 +43,12 @@ const AverageRating = ({ ratings }) => {
   return (
     <Container>
       <p>Average Customer Ratings</p>
-      <span>Overall</span>
-      <Bar>★★★★★</Bar>
-      {ratingAve.toPrecision(3)}
-      <FilledBar ratingAve={ratingAve}>★★★★★</FilledBar>
+      <StarLabel>Overall</StarLabel>
+      <StarContainer>
+        <Bar className="AverageRating__Bar">★★★★★</Bar>
+        <FilledBar ratingAve={ratingAve}>★★★★★</FilledBar>
+      </StarContainer>
+      <NumericalRating>{ratingAve.toPrecision(3)}</NumericalRating>
     </Container>
   );
 };

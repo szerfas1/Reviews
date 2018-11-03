@@ -5,7 +5,7 @@ import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
 import SortSelector from './components/SortSelector.js';
 
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'http://localhost:3002';
 const url = window.location.href.split('/');
 const PRODUCT_ID = url[url.length - 1];
 
@@ -108,7 +108,7 @@ class App extends React.Component {
   render() {
     const { reviews, ratings, sortDirection } = this.state;
 
-    return (
+    return reviews.length > 0 ? (
       <Main>
         <Title>Reviews</Title>
         <ReviewHeader>
@@ -127,6 +127,8 @@ class App extends React.Component {
           />
         ))}
       </Main>
+    ) : (
+      <div>Loading reviews . . .</div>
     );
   }
 }
