@@ -1,13 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReviewHeader from './ReviewHeader.js';
+import colors from '../styles.js';
 
 const HelpfulData = styled.span`
-  background-color: #ededed;
+  background-color: ${colors.lightGrey};
   margin: 0.5em;
   padding: 0.1em;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid ${colors.darkGrey};
+  border-bottom: 1px solid ${colors.darkGrey};
+  cursor: default;
+  ${p =>
+    p.changed
+      ? 'font-weight: bold;'
+      : `:hover {
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    };`};
 `;
 
 const Review = ({
@@ -17,6 +25,7 @@ const Review = ({
   helpful,
   unhelpful,
   incrementValue,
+  changed,
   ...others
 }) => (
   <>
@@ -24,16 +33,21 @@ const Review = ({
     <p>{body}</p>
     <p>
       <strong>{recommend ? '☑ Yes' : '☒ No'}</strong>, I
-      {recommend ? ' recommend this product' : ' do not recommend this product'}
+      {!recommend && ' do not'} recommend this product
     </p>
     <p>
       Helpful?
-      <HelpfulData onClick={() => incrementValue('helpful', id)}>
+      <HelpfulData
+        changed={changed && changed.helpful}
+        onClick={() => incrementValue('helpful', id)}
+      >
         Yes: {helpful}
       </HelpfulData>
-      <HelpfulData onClick={() => incrementValue('unhelpful', id)}>
-        {' '}
-        No: {unhelpful}{' '}
+      <HelpfulData
+        changed={changed && changed.unhelpful}
+        onClick={() => incrementValue('unhelpful', id)}
+      >
+        No: {unhelpful}
       </HelpfulData>
     </p>
     <hr />

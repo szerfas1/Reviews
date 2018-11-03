@@ -1,30 +1,27 @@
 module.exports = {
   extends: ['airbnb', 'plugin:jsx-a11y/recommended'],
   rules: {
-    'no-plusplus': 'off',
+    'arrow-parens': ['error', 'as-needed'],
+    'implicit-arrow-linebreak': ['warn', 'beside'],
+    'import/extensions': ['disabled'],
+    'no-confusing-arrow': 'warn',
     'no-param-reassign': ['error', { props: false }],
+    'no-plusplus': 'off',
+    'no-unused-expressions': ['error', { allowTernary: true }],
+    'object-curly-newline': ['error', { multiline: true }],
+    'operator-linebreak': [
+      'error',
+      'before',
+      { overrides: { '+': 'after', '&&': 'after', '||': 'after' } },
+    ],
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
     'react/no-array-index-key': 'warn',
     'react/prop-types': 'off',
-    'import/extensions': ['disabled'],
     'space-before-function-paren': ['error', 'never'],
-    'arrow-parens': ['error', 'as-needed'],
-    'implicit-arrow-linebreak': ['warn', 'beside'],
-    'operator-linebreak': [
-      'error',
-      'before',
-      {
-        overrides: { '+': 'after' },
-      },
-    ],
-    'object-curly-newline': ['error', { multiline: true }],
-    'no-unused-expressions': ['error', { allowTernary: true }],
     'import/no-extraneous-dependencies': [
       'error',
-      {
-        devDependencies: ['**/*.test.js', '**/*config.js', '*setupTests.js'],
-      },
+      { devDependencies: ['**/*.test.js', '**/*config.js', '*setupTests.js'] },
     ],
   },
   env: {

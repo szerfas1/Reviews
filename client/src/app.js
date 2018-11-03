@@ -5,6 +5,10 @@ import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
 import SortSelector from './components/SortSelector.js';
 
+const BASE_URL = 'http://localhost:8000';
+const url = window.location.href.split('/');
+const PRODUCT_ID = url[url.length - 1];
+
 const Main = styled.div`
   margin: 40px auto;
   max-width: 650px;
@@ -22,10 +26,6 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const BASE_URL = 'http://localhost:8000';
-const url = window.location.href.split('/');
-const PRODUCT_ID = url[url.length - 1];
-
 class App extends React.Component {
   static updateDB(payload) {
     fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`, {
@@ -42,21 +42,19 @@ class App extends React.Component {
       ratings: [],
       sortDirection: 'mostRecent',
     };
-    this.sortByRating = this.sortByRating.bind(this);
+    this.sortReviewsBy = this.sortReviewsBy.bind(this);
     this.incrementValue = this.incrementValue.bind(this);
-    App.updateDB = App.updateDB.bind(this);
   }
 
   componentDidMount() {
     fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
       .then(response => response.json())
       .then(json => {
-        const initialRatings = Array(5).fill(0);
         const ratings = json.reduce((currentRatings, review) => {
           const newRatings = currentRatings;
           newRatings[review.rating - 1]++;
           return newRatings;
-        }, initialRatings);
+        }, Array(5).fill(0));
         const sortedReviews = json.sort(
           (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
         );
@@ -64,9 +62,9 @@ class App extends React.Component {
       });
   }
 
-  sortByRating(newSortDirection) {
+  sortReviewsBy(newSortDirection) {
     const { reviews } = this.state;
-    const action = {
+    const sortBy = {
       mostRecent: () =>
         reviews.sort(
           (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
@@ -76,7 +74,7 @@ class App extends React.Component {
       mostHelpful: () => reviews.sort((a, b) => b.helpful - a.helpful),
     };
 
-    const sortedReviews = action[newSortDirection]();
+    const sortedReviews = sortBy[newSortDirection]();
 
     this.setState(() => ({
       reviews: sortedReviews,
@@ -84,19 +82,26 @@ class App extends React.Component {
     }));
   }
 
-  incrementValue(valueToIncrement, reviewId) {
+  incrementValue(value, reviewId) {
     const { reviews } = this.state;
+
     let newValue;
     const newReviews = reviews.map(review => {
-      if (review[valueToIncrement] === undefined) {
-        throw new Error('Invalid valueToIncrement');
+      if (review[value] === undefined) {
+        throw new Error('Invalid value');
       }
-      if (review.id === reviewId) {
-        newValue = ++review[valueToIncrement];
+      if (
+        review.id === reviewId &&
+        (!review.changed || !review.changed[value])
+      ) {
+        newValue = ++review[value];
+        review.changed
+          ? (review.changed[value] = true)
+          : (review.changed = { [value]: true });
       }
       return review;
     });
-    App.updateDB({ reviewId, updatedCol: valueToIncrement, newValue });
+    App.updateDB({ reviewId, updatedCol: value, newValue });
     this.setState(() => ({ reviews: newReviews }));
   }
 
@@ -112,7 +117,7 @@ class App extends React.Component {
         </ReviewHeader>
         <SortSelector
           sortDirection={sortDirection}
-          handleChange={this.sortByRating}
+          handleChange={this.sortReviewsBy}
         />
         {reviews.map(review => (
           <Review

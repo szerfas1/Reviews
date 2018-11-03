@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from '../styles.js';
 
 const Container = styled.div`
   float: left;
@@ -11,13 +12,13 @@ const Header = styled.p`
 
 const Bar = styled.span`
   display: inline-block;
-  background-color: #c5c5c5;
+  background-color: ${colors.grey};
   width: 180px;
   height: 10px;
 `;
 const FilledBar = styled.span`
   display: inline-block;
-  background-color: #bd5b0d;
+  background-color: ${colors.gold};
   margin-left: calc(-1 * (198px + ${p => 0.65 * String(p.rating).length}em));
   width: ${p => (180 / p.totalRatings) * p.rating}px;
   height: 10px;

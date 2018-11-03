@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from '../styles.js';
 
 const Reviewer = styled.div`
   font-weight: bold;
@@ -11,7 +12,7 @@ const ReviewTitle = styled.h3`
 `;
 
 const Star = styled.span`
-  color: ${status => (status.filled ? '#bd5b0d' : 'grey')};
+  color: ${status => (status.filled ? colors.gold : colors.grey)};
   font-size: 1.3em;
 `;
 
@@ -35,6 +36,7 @@ const ReviewHeader = ({ reviewer, title, rating, ...props }) => {
   ][date.getMonth()];
 
   const dateStr = `${month} ${date.getDate()}, ${date.getFullYear()}`;
+
   const stars = [1, 2, 3, 4, 5].map(el => (
     <Star key={el} filled={el <= rating}>
       ★
