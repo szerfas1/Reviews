@@ -14,7 +14,6 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-
   it('should return a result for a valid request the second time', done => {
     request(app)
       .get('/reviews/50')
@@ -26,7 +25,6 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-
   it('should return 404 when the product is not in the db', done => {
     request(app)
       .get('/reviews/5000')
@@ -35,7 +33,6 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-
   it('should redirect for /product/random', done => {
     request(app)
       .get('/product/random')
@@ -44,7 +41,6 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-
   it('should return HTML for a valid /product route', done => {
     request(app)
       .get('/product/47')
@@ -54,7 +50,6 @@ describe('/reviews endpoint', () => {
         done();
       });
   });
-
   it('should return 400 when the productId is malformed', done => {
     request(app)
       .get('/reviews/banana')
@@ -62,17 +57,6 @@ describe('/reviews endpoint', () => {
         expect(response.statusCode).to.equal(400);
         done();
       });
-  });
-
-  it('should successfully PUT an update', done => {
-    request(app)
-      .put('/reviews/47')
-      .send(
-        JSON.stringify({ reviewId: 662, updatedCol: 'helpful', newValue: 3 }),
-      )
-      .set('Content-Type', 'application/json')
-      .expect(200)
-      .then(() => done());
   });
 });
 

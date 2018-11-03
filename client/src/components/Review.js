@@ -10,15 +10,7 @@ const HelpfulData = styled.span`
   border-bottom: 1px solid #ccc;
 `;
 
-const Review = ({
-  id,
-  body,
-  recommend,
-  helpful,
-  unhelpful,
-  incrementValue,
-  ...others
-}) => (
+const Review = ({ body, recommend, helpful, unhelpful, ...others }) => (
   <>
     <ReviewHeader {...others} />
     <p>{body}</p>
@@ -28,13 +20,8 @@ const Review = ({
     </p>
     <p>
       Helpful?
-      <HelpfulData onClick={() => incrementValue('helpful', id)}>
-        Yes: {helpful}
-      </HelpfulData>
-      <HelpfulData onClick={() => incrementValue('unhelpful', id)}>
-        {' '}
-        No: {unhelpful}{' '}
-      </HelpfulData>
+      <HelpfulData> Yes: {helpful} </HelpfulData>
+      <HelpfulData> No: {unhelpful} </HelpfulData>
     </p>
     <hr />
   </>

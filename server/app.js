@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const { Pool } = require('pg');
-const bodyParser = require('body-parser');
 
 const db = new Pool({ database: 'trailblazers_reviews' });
 
@@ -15,7 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(`${__dirname}./../client/dist`));
-app.use(bodyParser.json());
 
 app.get('/product/:productId', (req, res) => {
   if (req.params.productId === 'random') {
@@ -38,17 +36,6 @@ app.get('/reviews/:productId', (req, res) => {
       }
     })
     .catch(() => res.status(400).send('Could not process productId'));
-});
-
-app.put('/reviews/:productId', (req, res) => {
-  const { reviewId, updatedCol, newValue } = req.body;
-  db.query(
-    `UPDATE reviews
-     SET ${updatedCol} = ${newValue}
-     WHERE id = ${reviewId}`,
-  ).then(() => {
-    res.send('Update saved');
-  });
 });
 
 module.exports = { app, db };

@@ -15,9 +15,7 @@ const Star = styled.span`
   font-size: 1.3em;
 `;
 
-const PostedDate = styled.span``;
-
-const ReviewHeader = ({ reviewer, title, rating, ...props }) => {
+const ReviewHeader = ({ reviewer, title, rating }, props) => {
   const date = new Date(props.posting_date);
   const month = [
     'Jan',
@@ -45,7 +43,7 @@ const ReviewHeader = ({ reviewer, title, rating, ...props }) => {
     <>
       <span title={`${rating} out of 5 stars`}>{stars}</span>
       <Reviewer>{reviewer} </Reviewer>
-      <PostedDate> {dateStr}</PostedDate>
+      <span> {dateStr}</span>
       <ReviewTitle>{title}</ReviewTitle>
     </>
   );
