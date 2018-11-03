@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/prettier/prettier.svg?branch=master)](https://travis-ci.org/prettier/prettier)
-[![Coverage Status](https://coveralls.io/repos/github/FrontEndCapstone/Reviews/badge.svg?branch=master)](https://coveralls.io/github/FrontEndCapstone/Reviews?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/FrontEndCapstone/Reviews/badge.svg?branch=master&service=github)](https://coveralls.io/github/FrontEndCapstone/Reviews?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/29769fb0f8f18fe5fcda/maintainability)](https://codeclimate.com/github/FrontEndCapstone/Reviews/maintainability)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
