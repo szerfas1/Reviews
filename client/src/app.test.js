@@ -57,10 +57,10 @@ const testData = [
     unhelpful: 13,
     posting_date: '2018-09-04T04:00:00.000Z',
   },
-];
+].sort((a, b) => new Date(b.posting_date) - new Date(a.posting_date));
 
 describe('Results component', () => {
-  fetch.mockResponseOnce(JSON.stringify(testData));
+  fetch.mockResponse(JSON.stringify(testData));
 
   const w = mount(<App />);
   it('should render "reviews" to the page', () => {
@@ -117,7 +117,21 @@ describe('Results component', () => {
     );
   });
 
+  it('should render the date', () => {
+    w.find('ReviewHeader__PostedDate').forEach((node, i) => {
+      const currectDate = new Date(testData[i].posting_date);
+      expect(node.text()).to.include(currectDate.getFullYear());
+      expect(node.text()).to.include(currectDate.getDate());
+    });
+  });
+});
+
+describe('Sorting the reviews', () => {
+  fetch.mockResponse(JSON.stringify(testData));
+  const w = mount(<App />);
+
   it('should be able to sort the reviews from highest to lowest rating', () => {
+    w.update();
     w.find('SortSelector__SortPicker')
       .at(0)
       .simulate('change', { target: { value: 'ratingHighToLow' } });
@@ -185,8 +199,14 @@ describe('Results component', () => {
       expect(rendered).to.include(`${sortedData[i].rating} out of 5 stars`);
     });
   });
+});
+
+describe('Updating the helpfulness data', () => {
+  fetch.mockResponse(JSON.stringify(testData));
+  const w = mount(<App />);
 
   it('should be able to increment the helpfulness data', () => {
+    w.update();
     const helpfulnessNode = w.find('Review__HelpfulData').first();
     const helpfulStr = helpfulnessNode.text();
     const helpfulNum = +helpfulStr.match(/\d/g).join('');
@@ -214,5 +234,10 @@ describe('Results component', () => {
         .match(/\d/g)
         .join(''),
     ).to.equal(unhelpfulNum + 1);
+  });
+
+  it('should throw an error if an incorrect value is incremented', () => {
+    const incrementingBadValue = () => w.instance().incrementValue('bob');
+    expect(incrementingBadValue).to.throw();
   });
 });

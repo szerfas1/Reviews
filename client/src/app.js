@@ -22,7 +22,19 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+const BASE_URL = 'http://localhost:8000';
+const url = window.location.href.split('/');
+const PRODUCT_ID = url[url.length - 1];
+
 class App extends React.Component {
+  static updateDB(payload) {
+    fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  }
+
   constructor() {
     super();
     this.state = {
@@ -32,13 +44,11 @@ class App extends React.Component {
     };
     this.sortByRating = this.sortByRating.bind(this);
     this.incrementValue = this.incrementValue.bind(this);
+    App.updateDB = App.updateDB.bind(this);
   }
 
   componentDidMount() {
-    const url = window.location.href.split('/');
-    const productId = url[url.length - 1];
-
-    fetch(`http://localhost:8000/reviews/${productId}`)
+    fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
       .then(response => response.json())
       .then(json => {
         const initialRatings = Array(5).fill(0);
@@ -76,15 +86,17 @@ class App extends React.Component {
 
   incrementValue(valueToIncrement, reviewId) {
     const { reviews } = this.state;
+    let newValue;
     const newReviews = reviews.map(review => {
       if (review[valueToIncrement] === undefined) {
         throw new Error('Invalid valueToIncrement');
       }
       if (review.id === reviewId) {
-        review[valueToIncrement]++;
+        newValue = ++review[valueToIncrement];
       }
       return review;
     });
+    App.updateDB({ reviewId, updatedCol: valueToIncrement, newValue });
     this.setState(() => ({ reviews: newReviews }));
   }
 

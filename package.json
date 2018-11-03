@@ -16,6 +16,7 @@
     "start": "webpack-cli --watch & nodemon server/server.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "merge": "^1.2.1",
     "pg": "^7.5.0",
