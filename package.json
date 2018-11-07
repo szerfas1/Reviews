@@ -13,10 +13,13 @@
     "db:init": "psql -d 'trailblazers_reviews' -c 'CREATE TABLE reviews ( id serial, product_id int, rating int, reviewer varchar(255), title varchar(255), body text, recommend boolean, helpful int, unhelpful int, posting_date date, PRIMARY KEY (id));' -U postgres",
     "db:setup": "node ./server/db/db.config.js",
     "db:clean": "psql -d 'trailblazers_reviews' -c 'DROP TABLE reviews;' -U postgres",
-    "start": "webpack-cli --watch & nodemon server/server.js"
+    "start": "webpack-cli --watch & nodemon server/server.js",
+    "build": "webpack-cli -p;  gzip ./client/dist/bundle.js --keep --best --force",
+    "deploy:static": "aws s3 cp ./client/dist/bundle.js.gz s3://fectrailblazers/reviews.js.gz"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
     "express": "^4.16.4",
     "merge": "^1.2.1",
     "pg": "^7.5.0",

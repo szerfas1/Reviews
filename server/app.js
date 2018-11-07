@@ -2,10 +2,12 @@ const express = require('express');
 const path = require('path');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 const db = new Pool({ database: 'trailblazers_reviews' });
 
 const app = express();
+app.use(compression());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
