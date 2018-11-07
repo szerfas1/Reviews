@@ -2,10 +2,18 @@ const express = require('express');
 const path = require('path');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
-const db = new Pool({ database: 'trailblazers_reviews' });
+const db = new Pool({
+  database: 'ebdb',
+  user: 'postgress',
+  password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
+  host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
+  port: '5432',
+});
 
 const app = express();
+app.use(compression());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -38,7 +46,7 @@ app.get('/reviews/:productId', (req, res) => {
         res.send(queryResponse.rows);
       }
     })
-    .catch(() => res.status(400).send('Could not process productId'));
+    .catch(err => res.status(400).send(err));
 });
 
 app.put('/reviews/:productId', (req, res) => {

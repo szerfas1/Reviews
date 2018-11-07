@@ -5,7 +5,7 @@ import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
 import SortSelector from './components/SortSelector.js';
 
-const BASE_URL = 'http://localhost:3002';
+const BASE_URL = 'http://fec-reviews-dev.us-west-2.elasticbeanstalk.com';
 const url = window.location.href.split('/');
 const PRODUCT_ID = url[url.length - 1];
 
