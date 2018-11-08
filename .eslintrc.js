@@ -12,7 +12,9 @@ module.exports = {
     'operator-linebreak': [
       'error',
       'before',
-      { overrides: { '+': 'after', '&&': 'after', '||': 'after' } },
+      {
+        overrides: { '+': 'after', '&&': 'after', '||': 'after', '=': 'after' },
+      },
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],

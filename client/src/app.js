@@ -39,7 +39,7 @@ class App extends React.Component {
     super();
     this.state = {
       reviews: [],
-      ratings: [],
+      ratings: [0, 0, 0, 0, 0],
       sortDirection: 'mostRecent',
     };
     this.sortReviewsBy = this.sortReviewsBy.bind(this);
@@ -47,19 +47,24 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
-      .then(response => response.json())
-      .then(json => {
-        const ratings = json.reduce((currentRatings, review) => {
-          const newRatings = currentRatings;
-          newRatings[review.rating - 1]++;
-          return newRatings;
-        }, Array(5).fill(0));
-        const sortedReviews = json.sort(
-          (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
-        );
-        this.setState(() => ({ reviews: sortedReviews, ratings }));
-      });
+    /* global INITIAL_STATE */
+    if (typeof INITIAL_STATE !== 'undefined') {
+      this.setState(() => INITIAL_STATE);
+    } else {
+      fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
+        .then(response => response.json())
+        .then(json => {
+          const ratings = json.reduce((currentRatings, review) => {
+            const newRatings = currentRatings;
+            newRatings[review.rating - 1]++;
+            return newRatings;
+          }, Array(5).fill(0));
+          const sortedReviews = json.sort(
+            (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
+          );
+          this.setState(() => ({ reviews: sortedReviews, ratings }));
+        });
+    }
   }
 
   sortReviewsBy(newSortDirection) {
@@ -108,7 +113,7 @@ class App extends React.Component {
   render() {
     const { reviews, ratings, sortDirection } = this.state;
 
-    return reviews.length > 0 ? (
+    return (
       <Main>
         <Title>Reviews</Title>
         <ReviewHeader>
@@ -127,8 +132,6 @@ class App extends React.Component {
           />
         ))}
       </Main>
-    ) : (
-      <div>Loading reviews . . .</div>
     );
   }
 }
