@@ -16,7 +16,8 @@
     "dev": "webpack-cli --watch & nodemon server/server.js",
     "start": "node server/server.js",
     "build": "webpack-cli -p;  gzip ./client/dist/bundle.js --keep --best --force",
-    "deploy:static": "aws s3 cp ./client/dist/bundle.js.gz s3://fectrailblazers/reviews.js"
+    "deploy:static": "aws s3 cp ./client/dist/bundle.js.gz s3://fectrailblazers/reviews.js --content-encoding gzip",
+    "deploy:beanstalk": "eb deploy"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

@@ -51,6 +51,15 @@ class App extends React.Component {
     if (typeof INITIAL_STATE !== 'undefined') {
       this.setState(() => INITIAL_STATE);
     } else {
+      const checkForInitialState = () =>
+        setTimeout(() => {
+          if (typeof INITIAL_STATE !== 'undefined') {
+            this.setState(() => INITIAL_STATE);
+          }
+          const { reviews } = this.state;
+          if (reviews.length === 0) checkForInitialState();
+        }, 16);
+      checkForInitialState();
       fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
         .then(response => response.json())
         .then(json => {
