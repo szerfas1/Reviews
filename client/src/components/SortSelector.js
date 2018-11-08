@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
+import { actions } from '../storeAndActions.js';
 
 const Container = styled.div`
   float: right;
@@ -13,13 +15,13 @@ const SortPicker = styled.select`
   font-size: 1em;
 `;
 
-const SortSelector = ({ sortDirection, handleChange }) => (
+const SortSelector = ({ sortDirection, sortReviewsBy }) => (
   <Container>
     <span>Sort By:</span>
     <SortPicker
       value={sortDirection}
       wordLength={sortDirection.length}
-      onChange={e => handleChange(e.target.value)}
+      onChange={e => sortReviewsBy(e.target.value)}
     >
       <option value="mostRecent">Most Recent</option>
       <option value="ratingHighToLow">Highest to Lowest Rating</option>
@@ -29,4 +31,7 @@ const SortSelector = ({ sortDirection, handleChange }) => (
   </Container>
 );
 
-export default SortSelector;
+export default connect(
+  'sortDirection',
+  actions,
+)(SortSelector);
