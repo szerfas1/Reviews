@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const faker = require('faker');
 
-const db = new Pool({ database: 'ebdb' });
+const db = new Pool({ database: 'trailblazers_reviews' }); // change to ebdb
 
 const createQueryStr = `
   CREATE TABLE reviews (
