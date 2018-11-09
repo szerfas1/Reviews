@@ -16,20 +16,18 @@
   <script>
     let INITIAL_STATE = undefined;
     fetch(`http://fec-reviews-dev.us-west-2.elasticbeanstalk.com/reviews/${window.location.href.split('/')[window.location.href.split('/').length - 1]}`)
-      .then(response => response.json())
-      .then(json => {
-        const ratings = json.reduce((currentRatings, review) => {
-          const newRatings = currentRatings;
-          newRatings[review.rating - 1]++;
-          return newRatings;
-        }, Array(5).fill(0));
-        const sortedReviews = json.sort(
-          (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
-        );
-        INITIAL_STATE = { reviews: sortedReviews, ratings };
+      .then(response => response.json()).then(json => {
+        const ratings = Array(5).fill(0);
+        const newReviews = {};
+        json.forEach(review => {
+          ratings[review.rating - 1]++;
+          newReviews[review.id] = review;
+          newReviews[review.id].modifiedKeys = {};
+        });
+        INITIAL_STATE = { reviews: newReviews, ratings };
       });
   </script>
-  <script src="https://s3.amazonaws.com/fectrailblazers/reviews.js"></script>
+  <script src="https://.amazonaws.com/fectrailblazers/reviews.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
 
 const Container = styled.div`
   float: right;
@@ -54,4 +55,4 @@ const AverageRating = ({ ratings }) => {
   );
 };
 
-export default AverageRating;
+export default connect('ratings')(AverageRating);

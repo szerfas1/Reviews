@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
+import { actions } from '../storeAndActions.js';
 import ReviewHeader from './ReviewHeader.js';
 import colors from '../styles.js';
 
@@ -18,40 +20,50 @@ const HelpfulData = styled.span`
     };`};
 `;
 
-const Review = ({
-  id,
-  body,
-  recommend,
-  helpful,
-  unhelpful,
-  incrementValue,
-  changed,
-  ...others
-}) => (
-  <>
-    <ReviewHeader {...others} />
-    <p>{body}</p>
-    <p>
-      <strong>{recommend ? '☑ Yes' : '☒ No'}</strong>, I
-      {!recommend && ' do not'} recommend this product
-    </p>
-    <p>
-      Helpful?
-      <HelpfulData
-        changed={changed && changed.helpful}
-        onClick={() => incrementValue('helpful', id)}
-      >
-        Yes: {helpful}
-      </HelpfulData>
-      <HelpfulData
-        changed={changed && changed.unhelpful}
-        onClick={() => incrementValue('unhelpful', id)}
-      >
-        No: {unhelpful}
-      </HelpfulData>
-    </p>
-    <hr />
-  </>
-);
+const Review = ({ reviews, sortDirection, incrementValue }) => {
+  const reviewsArray = Object.values(reviews);
+  const sortBy = {
+    mostRecent: () =>
+      reviewsArray.sort(
+        (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
+      ),
+    ratingLowToHigh: () => reviewsArray.sort((a, b) => a.rating - b.rating),
+    ratingHighToLow: () => reviewsArray.sort((a, b) => b.rating - a.rating),
+    mostHelpful: () => reviewsArray.sort((a, b) => b.helpful - a.helpful),
+  };
 
-export default Review;
+  const sortedReviews = sortBy[sortDirection]();
+  return sortedReviews.map(
+    ({ id, body, recommend, helpful, unhelpful, modifiedKeys }) => (
+      <div key={id}>
+        <ReviewHeader id={id} />
+        <p>{body}</p>
+        <p>
+          <strong>{recommend ? '☑ Yes' : '☒ No'}</strong>, I
+          {!recommend && ' do not'} recommend this product
+        </p>
+        <p>
+          Helpful?
+          <HelpfulData
+            changed={modifiedKeys.helpful}
+            onClick={() => incrementValue(id, 'helpful')}
+          >
+            Yes: {helpful}
+          </HelpfulData>
+          <HelpfulData
+            changed={modifiedKeys.unhelpful}
+            onClick={() => incrementValue(id, 'unhelpful')}
+          >
+            No: {unhelpful}
+          </HelpfulData>
+        </p>
+        <hr />
+      </div>
+    ),
+  );
+};
+
+export default connect(
+  'reviews,sortDirection,updateCounter',
+  actions,
+)(Review);
