@@ -5,12 +5,14 @@ const PRODUCT_ID = window.location.href.split('/')[
   window.location.href.split('/').length - 1
 ];
 
+/* global TEST_ENV TESTreviews TESTratings TESTsortDirection TESTupdateCounter TESTmodifiedKeys */
+const TEST = typeof TEST_ENV !== 'undefined';
 const store = createStore({
-  reviews: {},
-  ratings: [0, 0, 0, 0, 0],
-  sortDirection: 'mostRecent',
-  updateCounter: 0,
-  modifiedKeys: {},
+  reviews: TEST ? TESTreviews : {},
+  ratings: TEST ? TESTratings : [0, 0, 0, 0, 0],
+  sortDirection: TEST ? TESTsortDirection : 'mostRecent',
+  updateCounter: TEST ? TESTupdateCounter : 0,
+  modifiedKeys: TEST ? TESTmodifiedKeys : {},
 });
 
 const setInitialState = () => {
@@ -46,8 +48,6 @@ const updateDB = payload => {
 };
 
 const actions = () => ({
-  incrementRatings: ({ ratings }) => ({ ratings: ratings.map(el => el + 1) }),
-
   sortReviewsBy: (state, value) => ({ sortDirection: value }),
 
   incrementValue: ({ reviews, updateCounter }, targetId, value) => {
@@ -63,6 +63,7 @@ const actions = () => ({
     }
   },
 });
+
 setInitialState();
 
 export { store, actions };
