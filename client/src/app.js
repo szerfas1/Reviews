@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Provider } from 'unistore/react';
+import { store } from './storeAndActions.js';
 import Review from './components/Review.js';
 import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
@@ -23,15 +25,17 @@ const Title = styled.h1`
 `;
 
 const App = () => (
-  <Main>
-    <Title>Reviews</Title>
-    <ReviewHeader>
-      <RatingSnapshot />
-      <AverageRating />
-    </ReviewHeader>
-    <SortSelector />
-    <Review />
-  </Main>
+  <Provider store={store}>
+    <Main>
+      <Title>Reviews</Title>
+      <ReviewHeader>
+        <RatingSnapshot />
+        <AverageRating />
+      </ReviewHeader>
+      <SortSelector />
+      <Review />
+    </Main>
+  </Provider>
 );
 
 export default App;
