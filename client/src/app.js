@@ -8,6 +8,7 @@ import AverageRating from './components/AverageRating.js';
 import SortSelector from './components/SortSelector.js';
 
 import reactStar from 'react-star-ratings';
+import propTypes from 'prop-types';
 import $ from 'jquery';
 import axios from 'axios';
 
