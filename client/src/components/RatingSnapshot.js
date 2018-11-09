@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
 import colors from '../styles.js';
 
 const Container = styled.div`
@@ -33,9 +34,9 @@ const RatingSnapshot = ({ ratings }) => {
   return (
     <Container>
       <Header>Rating Snapshot</Header>
-      {ratings.map((rating, i) => (
+      {ratings.reverse().map((rating, i) => (
         <div key={i}>
-          {i + 1}
+          {5 - i}
           ★: <Bar />
           <NumericalRating>{rating}</NumericalRating>
           <FilledBar rating={rating} totalRatings={totalRatings} />
@@ -45,4 +46,4 @@ const RatingSnapshot = ({ ratings }) => {
   );
 };
 
-export default RatingSnapshot;
+export default connect('ratings')(RatingSnapshot);

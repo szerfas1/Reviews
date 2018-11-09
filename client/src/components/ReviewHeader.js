@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'unistore/react';
 import colors from '../styles.js';
 
 const Reviewer = styled.div`
@@ -18,8 +19,9 @@ const Star = styled.span`
 
 const PostedDate = styled.span``;
 
-const ReviewHeader = ({ reviewer, title, rating, ...props }) => {
-  const date = new Date(props.posting_date);
+const ReviewHeader = ({ reviews, id }) => {
+  const { reviewer, title, rating, posting_date: postingDate } = reviews[id];
+  const date = new Date(postingDate);
   const month = [
     'Jan',
     'Feb',
@@ -53,4 +55,4 @@ const ReviewHeader = ({ reviewer, title, rating, ...props }) => {
   );
 };
 
-export default ReviewHeader;
+export default connect('reviews')(ReviewHeader);

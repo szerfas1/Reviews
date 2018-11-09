@@ -27,7 +27,8 @@
     "pg": "^7.5.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "styled-components": "^4.0.2"
+    "styled-components": "^4.0.2",
+    "unistore": "^3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
