@@ -48,8 +48,6 @@ const updateDB = payload => {
 };
 
 const actions = () => ({
-  incrementRatings: ({ ratings }) => ({ ratings: ratings.map(el => el + 1) }),
-
   sortReviewsBy: (state, value) => ({ sortDirection: value }),
 
   incrementValue: ({ reviews, updateCounter }, targetId, value) => {
