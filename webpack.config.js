@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './client/src/index.js',
+  entry: { index: './client/src/index.js' },
   mode: 'development',
   module: {
     rules: [
@@ -22,13 +22,17 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'client/dist/'),
     publicPath: 'client/dist/',
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'client/public/'),
-    port: 3000,
-    publicPath: 'http://localhost:3000/dist/',
-    hotOnly: true,
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
 };
