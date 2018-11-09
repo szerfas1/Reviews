@@ -1,15 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'unistore/react';
-import { actions } from './storeAndActions.js';
 import Review from './components/Review.js';
 import RatingSnapshot from './components/RatingSnapshot.js';
 import AverageRating from './components/AverageRating.js';
 import SortSelector from './components/SortSelector.js';
-
-const BASE_URL = 'http://fec-reviews-dev.us-west-2.elasticbeanstalk.com';
-const url = window.location.href.split('/');
-const PRODUCT_ID = url[url.length - 1];
 
 const Main = styled.div`
   margin: 40px auto;
@@ -28,7 +22,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const App = ({ reviews }) => (
+const App = () => (
   <Main>
     <Title>Reviews</Title>
     <ReviewHeader>
@@ -40,4 +34,4 @@ const App = ({ reviews }) => (
   </Main>
 );
 
-export default connect('reviews')(App);
+export default App;

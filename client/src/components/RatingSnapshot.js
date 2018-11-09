@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'unistore/react';
-import { actions } from '../storeAndActions.js';
 import colors from '../styles.js';
 
 const Container = styled.div`
@@ -29,21 +28,15 @@ const NumericalRating = styled.span`
   padding-left: 1em;
 `;
 
-const RatingSnapshot = ({ ratings, setInitialState, deleteReview }) => {
+const RatingSnapshot = ({ ratings }) => {
   const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
 
   return (
     <Container>
-      <Header
-        onClick={() => {
-          setInitialState();
-        }}
-      >
-        Rating Snapshot
-      </Header>
-      {ratings.map((rating, i) => (
-        <div key={i} onClick={deleteReview}>
-          {i + 1}
+      <Header>Rating Snapshot</Header>
+      {ratings.reverse().map((rating, i) => (
+        <div key={i}>
+          {5 - i}
           ★: <Bar />
           <NumericalRating>{rating}</NumericalRating>
           <FilledBar rating={rating} totalRatings={totalRatings} />
@@ -53,7 +46,4 @@ const RatingSnapshot = ({ ratings, setInitialState, deleteReview }) => {
   );
 };
 
-export default connect(
-  'ratings',
-  actions,
-)(RatingSnapshot);
+export default connect('ratings')(RatingSnapshot);

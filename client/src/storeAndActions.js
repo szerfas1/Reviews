@@ -1,37 +1,65 @@
 import createStore from 'unistore';
-import { Provider, connect } from 'unistore/react';
 
 const store = createStore({
-  reviews: [],
+  reviews: {},
   ratings: [0, 0, 0, 0, 0],
   sortDirection: 'mostRecent',
+  updateCounter: 0,
+  modifiedKeys: {},
 });
 
-const actions = theStore => ({
+const actions = () => ({
   incrementRatings: ({ ratings }) => ({ ratings: ratings.map(el => el + 1) }),
 
   sortReviewsBy: (state, value) => ({ sortDirection: value }),
 
-  deleteReview: ({ reviews }) => ({ reviews: [reviews[1], reviews[0]] }),
-
-  incrementHelpful: ({ reviews }, targetId) => {
-    if (reviews.filter(review => review.id === targetId)[0].changed) {
-      return;
+  incrementValue: ({ reviews, updateCounter }, targetId, value) => {
+    if (!reviews[targetId].modifiedKeys[value]) {
+      const newReviews = reviews;
+      newReviews[targetId].modifiedKeys[value] = true;
+      newReviews[targetId][value] += 1;
+      return {
+        reviews: newReviews,
+        updateCounter: updateCounter + 1,
+      };
     }
-    const newReviews = reviews.map(review => {
-      if (review.id === targetId) {
-        review.helpful += 1;
-        review.changed = true;
-      }
-      return review;
-    });
-    return { reviews: newReviews };
+    return {};
   },
-
-  setInitialState: () => ({
-    reviews: INITIAL_STATE.reviews,
-    ratings: INITIAL_STATE.ratings,
-  }),
 });
+
+const setInitialState = () => {
+  const newReviews = {};
+
+  /* global INITIAL_STATE */
+  if (INITIAL_STATE) {
+    store.setState({
+      reviews: INITIAL_STATE.reviews,
+      ratings: INITIAL_STATE.ratings,
+    });
+  }
+  fetch(
+    `http://fec-reviews-dev.us-west-2.elasticbeanstalk.com/reviews/${
+      window.location.href.split('/')[
+        window.location.href.split('/').length - 1
+      ]
+    }`,
+  )
+    .then(response => response.json())
+    .then(json => {
+      const ratings = json.reduce((currentRatings, review) => {
+        const newRatings = currentRatings;
+        newRatings[review.rating - 1]++;
+        return newRatings;
+      }, Array(5).fill(0));
+
+      json.forEach(review => {
+        newReviews[review.id] = review;
+        newReviews[review.id].modifiedKeys = {};
+      });
+      store.setState({ reviews: newReviews, ratings });
+    });
+};
+
+setInitialState();
 
 export { store, actions };

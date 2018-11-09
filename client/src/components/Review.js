@@ -20,31 +20,23 @@ const HelpfulData = styled.span`
     };`};
 `;
 
-const Review = ({ reviews, sortDirection, incrementHelpful }) => {
+const Review = ({ reviews, sortDirection, incrementValue }) => {
+  const reviewsArray = Object.values(reviews);
   const sortBy = {
     mostRecent: () =>
-      reviews.sort(
+      reviewsArray.sort(
         (a, b) => new Date(b.posting_date) - new Date(a.posting_date),
       ),
-    ratingLowToHigh: () => reviews.sort((a, b) => a.rating - b.rating),
-    ratingHighToLow: () => reviews.sort((a, b) => b.rating - a.rating),
-    mostHelpful: () => reviews.sort((a, b) => b.helpful - a.helpful),
+    ratingLowToHigh: () => reviewsArray.sort((a, b) => a.rating - b.rating),
+    ratingHighToLow: () => reviewsArray.sort((a, b) => b.rating - a.rating),
+    mostHelpful: () => reviewsArray.sort((a, b) => b.helpful - a.helpful),
   };
 
   const sortedReviews = sortBy[sortDirection]();
   return sortedReviews.map(
-    ({
-      id,
-      body,
-      recommend,
-      helpful,
-      unhelpful,
-      incrementValue,
-      changed,
-      ...others
-    }) => (
+    ({ id, body, recommend, helpful, unhelpful, modifiedKeys }) => (
       <div key={id}>
-        <ReviewHeader {...others} />
+        <ReviewHeader id={id} />
         <p>{body}</p>
         <p>
           <strong>{recommend ? '☑ Yes' : '☒ No'}</strong>, I
@@ -53,14 +45,14 @@ const Review = ({ reviews, sortDirection, incrementHelpful }) => {
         <p>
           Helpful?
           <HelpfulData
-            changed={changed && changed.helpful}
-            onClick={() => incrementHelpful(id)}
+            changed={modifiedKeys.helpful}
+            onClick={() => incrementValue(id, 'helpful')}
           >
             Yes: {helpful}
           </HelpfulData>
           <HelpfulData
-            changed={changed && changed.unhelpful}
-            onClick={() => incrementValue('unhelpful', id)}
+            changed={modifiedKeys.unhelpful}
+            onClick={() => incrementValue(id, 'unhelpful')}
           >
             No: {unhelpful}
           </HelpfulData>
@@ -72,6 +64,6 @@ const Review = ({ reviews, sortDirection, incrementHelpful }) => {
 };
 
 export default connect(
-  'reviews,sortDirection',
+  'reviews,sortDirection,updateCounter',
   actions,
 )(Review);
