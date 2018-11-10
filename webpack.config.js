@@ -1,8 +1,13 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: { index: './client/src/index.js' },
+  entry: {
+    reviews: './client/src/index.js',
+    comparisons: '../ProductComparisons/client/src/index.jsx',
+  },
   mode: 'development',
   module: {
     rules: [
@@ -10,7 +15,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        options: { presets: ['@babel/env'] },
+        options: { presets: ['@babel/preset-react', '@babel/preset-env'] },
       },
       {
         test: /\.css$/,
@@ -24,6 +29,7 @@ module.exports = {
     publicPath: 'client/dist/',
     filename: '[name].bundle.js',
   },
+  plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
   optimization: {
     splitChunks: {
       cacheGroups: {

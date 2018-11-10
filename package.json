@@ -24,7 +24,6 @@
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "express": "^4.16.4",
-    "jquery": "^3.3.1",
     "merge": "^1.2.1",
     "pg": "^7.5.0",
     "prop-types": "^15.6.2",
@@ -32,7 +31,9 @@
     "react-dom": "^16.6.0",
     "react-star-ratings": "^2.3.0",
     "styled-components": "^4.0.2",
-    "unistore": "^3.1.0"
+    "unistore": "^3.1.0",
+    "mongoose": "^5.3.6",
+    "unfetch": "^4.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -64,6 +65,7 @@
     "style-loader": "^0.23.0",
     "supertest": "^3.3.0",
     "webpack": "^4.19.1",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.8"
   },
