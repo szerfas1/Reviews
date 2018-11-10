@@ -38,9 +38,10 @@ const NumericalRating = styled.span`
 `;
 
 const AverageRating = ({ ratings }) => {
-  const ratingSum = ratings.reduce((acc, cur, i) => acc + cur * (4 - i), 0);
+  const displayRatings = ratings.slice();
+  const ratingSum = displayRatings.reduce((acc, cur, i) => acc + cur * i, 0);
   const ratingAve =
-    ratingSum / ratings.reduce((acc, cur) => acc + cur, 0) + 1 || 0;
+    ratingSum / displayRatings.reduce((acc, cur) => acc + cur, 0) + 1 || 0;
 
   return (
     <Container>
