@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'PUT');
   next();
 });
-app.use(express.static(`${__dirname}./../client/dist`));
+app.use(express.static(`${__dirname}./../client/dist`, { maxAge: '365d' }));
 app.use(bodyParser.json());
 
 app.get('/product/:productId', (req, res) => {
