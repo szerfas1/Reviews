@@ -28,7 +28,7 @@ module.exports = {
     publicPath: 'client/dist/',
     filename: '[name].bundle.js',
   },
-  plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
+  //  plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
   optimization: {
     splitChunks: {
       chunks: 'all',

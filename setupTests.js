@@ -73,6 +73,5 @@ testData.forEach(review => {
 });
 global.TESTsortDirection = 'mostRecent';
 global.TESTupdateCounter = 0;
-global.TESTmodifiedKeys = {};
 
 configure({ adapter: new Adapter() });

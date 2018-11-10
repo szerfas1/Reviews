@@ -30,7 +30,12 @@ app.get('/product/:productId', (req, res) => {
   if (req.params.productId === 'random') {
     res.redirect(`/product/${Math.floor(Math.random() * 100) + 1}`);
   } else {
-    const options = { headers: { 'Content-Type': 'text/html' } };
+    const options = {
+      headers: {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'public, max-age=300',
+      },
+    };
     const file = path.join(`${__dirname}./../client/public/index.html`);
     res.sendFile(file, options);
   }

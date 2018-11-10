@@ -29,12 +29,13 @@ const NumericalRating = styled.span`
 `;
 
 const RatingSnapshot = ({ ratings }) => {
-  const totalRatings = ratings.reduce((acc, cur) => acc + cur, 0);
+  const displayedRatings = ratings.slice();
+  const totalRatings = displayedRatings.reduce((acc, cur) => acc + cur, 0);
 
   return (
     <Container>
       <Header>Rating Snapshot</Header>
-      {ratings.reverse().map((rating, i) => (
+      {displayedRatings.reverse().map((rating, i) => (
         <div key={i}>
           {5 - i}
           ★: <Bar />
