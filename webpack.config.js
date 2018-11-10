@@ -5,8 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    reviews: './client/src/index.js',
-    comparisons: '../ProductComparisons/client/src/index.jsx',
+    index: './client/src/index.js',
   },
   mode: 'development',
   module: {
@@ -31,14 +30,6 @@ module.exports = {
   },
   plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
+    splitChunks: { chunks: 'all' },
   },
 };
