@@ -36,7 +36,7 @@ app.get('/product/:productId', (req, res) => {
         'Cache-Control': 'public, max-age=300',
       },
     };
-    const file = path.join(`${__dirname}./../client/public/index.html`);
+    const file = path.join(`${__dirname}./../client/dist/index.html`);
     res.sendFile(file, options);
   }
 });

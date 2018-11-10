@@ -5,6 +5,7 @@ import colors from '../styles.js';
 
 const Container = styled.div`
   float: left;
+  min-width: 13em;
 `;
 
 const Header = styled.p`

@@ -23,11 +23,6 @@ const setInitialState = () => {
       ),
     );
   }
-  /* global INITIAL_STATE */
-  if (typeof INITIAL_STATE !== 'undefined') {
-    const { reviews, ratings } = INITIAL_STATE;
-    store.setState({ reviews, ratings });
-  }
   fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
     .then(response => response.json())
     .then(json => {

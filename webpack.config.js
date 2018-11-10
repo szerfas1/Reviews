@@ -1,10 +1,13 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const webpack = require('webpack');
 
 module.exports = {
   entry: {
+    inline: './client/src/inline.js',
     index: './client/src/index.js',
   },
   mode: 'development',
@@ -25,10 +28,18 @@ module.exports = {
   resolve: { extensions: ['*', '.js', '.jsx'] },
   output: {
     path: path.resolve(__dirname, 'client/dist/'),
-    publicPath: 'client/dist/',
+    publicPath: '../',
     filename: '[name].bundle.js',
   },
-  //  plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
+  plugins: [
+    //    new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+    new HtmlWebpackPlugin({
+      inlineSource: 'inline',
+      title: 'Caching',
+      template: 'indexTemplate.html',
+    }),
+    new HtmlWebpackInlineSourcePlugin(),
+  ],
   optimization: {
     splitChunks: {
       chunks: 'all',
