@@ -30,6 +30,9 @@ module.exports = {
   },
   plugins: [new BundleAnalyzerPlugin({ analyzerMode: 'static' })],
   optimization: {
-    splitChunks: { chunks: 'all' },
+    splitChunks: {
+      chunks: 'all',
+      maxSize: 20000,
+    },
   },
 };
