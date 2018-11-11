@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 const faker = require('faker');
 
-const db = new Pool({ database: 'trailblazers_reviews' }); // change to ebdb
+const db = new Pool({ database: 'ebdb' }); // change to ebdb
 
 const createQueryStr = `
   CREATE TABLE reviews (
@@ -19,10 +19,10 @@ const insertQueryText = `
 
 const bellcurveNumber = (min, max) => {
   let result = 0;
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 3; i++) {
     result += faker.random.number({ max, min });
   }
-  result = Math.round(result / 10);
+  result = Math.round(result / 3);
 
   return result;
 };
