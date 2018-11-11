@@ -9,6 +9,6 @@
         newReviews[review.id] = review;
         newReviews[review.id].modifiedKeys = {};
       });
-      localStorage.setItem(`trailblazersProduct${productNumber}Reviews`, { reviews: newReviews, ratings });
+      localStorage.setItem(`trailblazersProduct${productNumber}Reviews`, JSON.stringify({ reviews: newReviews, ratings }));
     });
 })();
