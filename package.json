@@ -10,12 +10,12 @@
   "scripts": {
     "test": "jest --verbose",
     "lint": "eslint ./",
-    "db:init": "psql -d 'trailblazers_reviews' -c 'CREATE TABLE reviews ( id serial, product_id int, rating int, reviewer varchar(255), title varchar(255), body text, recommend boolean, helpful int, unhelpful int, posting_date date, PRIMARY KEY (id));' -U postgres",
+    "db:init": "psql -d 'trailblazers_reviews' -c 'CREATE TABLE reviews ( id serial, product_id int, rating int, reviewer varchar(255), title varchar(255), body text, recommend boolean, helpful int, unhelpful int, posting_date date, PRIMARY KEY (id));'",
     "db:setup": "node ./server/db/db.config.js",
-    "db:clean": "psql -d 'trailblazers_reviews' -c 'DROP TABLE reviews;' -U postgres",
+    "db:clean": "psql -d 'trailblazers_reviews' -c 'DROP TABLE reviews;'",
     "dev": "webpack-cli --watch & nodemon server/server.js",
     "start": "node server/server.js",
-    "build": "webpack-cli -p;  gzip ./client/dist/bundle.js --keep --best --force",
+    "build": "webpack-cli -p",
     "deploy:static": "aws s3 cp ./client/dist/bundle.js.gz s3://fectrailblazers/reviews.js --content-encoding gzip",
     "deploy:beanstalk": "eb deploy"
   },

@@ -39,10 +39,10 @@ module.exports = {
     }),
     new HtmlWebpackInlineSourcePlugin(),
   ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      maxSize: 20000,
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     maxSize: 20000,
+  //   },
+  // },
 };

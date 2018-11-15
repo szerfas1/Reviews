@@ -1,6 +1,6 @@
 import createStore from 'unistore';
 
-const BASE_URL = 'http://fec-reviews-dev.us-west-2.elasticbeanstalk.com';
+const BASE_URL = ''; // http://fec-reviews-dev.us-west-2.elasticbeanstalk.com
 const PRODUCT_ID = window.location.href.split('/')[
   window.location.href.split('/').length - 1
 ];
