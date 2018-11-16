@@ -26,7 +26,6 @@ const setInitialState = () => {
       ),
     );
   }
-  console.log('set initial state called with BASE_URL', BASE_URL);
   fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
     .then(response => response.json())
     .then(json => {

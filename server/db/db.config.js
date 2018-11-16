@@ -33,7 +33,7 @@ const bellcurveNumber = (min, max) => {
 
 const insertPlaceholderData = (client, res) => {
   let counter = 0;
-  for (let i = 1; i < 100000; i++) {
+  for (let i = 1; i < 100; i++) {
     counter++;
     if (Math.random() < 0.95 && i < 100) {
       i--;
