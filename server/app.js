@@ -5,18 +5,14 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const db = new Pool({
-  database: 'trailblazers_reviews',
-  // user: 'Stephan',
-  // password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
-  // host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
-  // port: '5432',
-});
-//   database: 'ebdb',
-//   user: 'postgress',
-//   password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
-//   host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
-//   port: '5432',
+//   database: 'trailblazers_reviews',
 // });
+  database: 'ebdb',
+  user: 'postgress',
+  password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
+  host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
+  port: '5432',
+});
 
 const app = express();
 app.use(compression());
@@ -29,7 +25,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'PUT');
   next();
 });
-app.use(express.static(`${__dirname}./../client/dist`, { maxAge: '365d' }));
+app.use((res, req, next) => console.log('express static middleware activitated') || next(), express.static(`${__dirname}./../client/dist`, { maxAge: '365d' }));
 app.use(bodyParser.json());
 
 app.get('/product/:productId', (req, res) => {

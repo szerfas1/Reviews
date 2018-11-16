@@ -1,6 +1,9 @@
 import createStore from 'unistore';
 
-const BASE_URL = ''; // http://fec-reviews-dev.us-west-2.elasticbeanstalk.com
+// BASE_URL is hardcoded because if empty string would reach out to the proxy server running locally
+// rather than the reviews service running locally
+// can also be set to deployed reviews service at http://fec-reviews-dev.us-west-2.elasticbeanstalk.com
+const BASE_URL = 'http://localhost:8082';
 const PRODUCT_ID = window.location.href.split('/')[
   window.location.href.split('/').length - 1
 ];
@@ -23,6 +26,7 @@ const setInitialState = () => {
       ),
     );
   }
+  console.log('set initial state called with BASE_URL', BASE_URL);
   fetch(`${BASE_URL}/reviews/${PRODUCT_ID}`)
     .then(response => response.json())
     .then(json => {
