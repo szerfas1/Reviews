@@ -15,7 +15,7 @@ const createQueryStr = `
     PRIMARY KEY (id)
   );`;
 const insertQueryText = `
-  COPY INTO reviews (
+  INSERT INTO reviews (
     product_id, rating, reviewer, title, body, recommend, helpful, unhelpful, posting_date
   ) VALUES (
        $1,       $2,      $3,      $4,   $5,    $6,        $7,       $8,     $9
@@ -32,7 +32,7 @@ const bellcurveNumber = (min, max) => {
 };
 
 const insertPlaceholderData = (client, res) => {
-  for (let i = 1; i < 100000; i++) {
+  for (let i = 1; i < 100; i++) {
     if (Math.random() < 0.95 && i < 100) {
       i--;
     }

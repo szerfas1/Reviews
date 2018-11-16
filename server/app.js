@@ -5,12 +5,18 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const db = new Pool({
-  database: 'ebdb',
-  user: 'postgress',
-  password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
-  host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
-  port: '5432',
+  database: 'trailblazers_reviews',
+  // user: 'Stephan',
+  // password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
+  // host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
+  // port: '5432',
 });
+//   database: 'ebdb',
+//   user: 'postgress',
+//   password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
+//   host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
+//   port: '5432',
+// });
 
 const app = express();
 app.use(compression());
