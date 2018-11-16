@@ -32,7 +32,9 @@ const bellcurveNumber = (min, max) => {
 };
 
 const insertPlaceholderData = (client, res) => {
-  for (let i = 1; i < 100; i++) {
+  let counter = 0;
+  for (let i = 1; i < 100000; i++) {
+    counter++;
     if (Math.random() < 0.95 && i < 100) {
       i--;
     }
@@ -57,6 +59,7 @@ const insertPlaceholderData = (client, res) => {
       }
     });
   }
+  console.log('number of records attempted to log in database is', counter);
 };
 
 const initReviewsTable = () => {
